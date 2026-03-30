@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useSession, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { SyncDjangoSessionDocument } from 'types/__generated__/authQueries.generated'

@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import { FC } from 'react'
 import { FaFileArrowDown } from 'react-icons/fa6'
 import { fetchMetricsPDF } from 'server/fetchMetricsPDF'
@@ -12,7 +12,6 @@ const MetricsPDFButton: FC<{
   return (
     <Tooltip
       content="Download as PDF"
-      className="ml-2"
       placement="top"
       delay={100}
       closeDelay={100}

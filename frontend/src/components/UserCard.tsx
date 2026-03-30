@@ -1,5 +1,5 @@
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
+import { Button } from '@heroui/react'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import millify from 'millify'
 import Image from 'next/image'
 import { FaChevronRight, FaFolderOpen, FaMedal, FaUser } from 'react-icons/fa6'

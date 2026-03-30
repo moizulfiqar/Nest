@@ -1,4 +1,5 @@
-import { Autocomplete, AutocompleteItem } from '@heroui/autocomplete'
+import { ListBox } from '@heroui/react'
+import { AutocompleteCompat as Autocomplete } from 'utils/herouiCompat'
 import type React from 'react'
 import { useMemo } from 'react'
 
@@ -29,7 +30,7 @@ const CountryFilter: React.FC<CountryFilterProps> = ({
         isLoading={isLoading}
         defaultItems={options}
         selectedKey={selectedCountry}
-        onSelectionChange={(key) => {
+        onSelectionChange={(key: any) => {
           onCountryChange((key as string) ?? '')
         }}
         allowsCustomValue={false}
@@ -56,15 +57,14 @@ const CountryFilter: React.FC<CountryFilterProps> = ({
           },
         }}
       >
-        {(item) => (
-          <AutocompleteItem
+        {(item: any) => (
+          <ListBox.Item
             key={item.key}
-            classNames={{
-              base: 'text-sm text-gray-700 dark:text-gray-300 hover:bg-transparent dark:hover:bg-transparent focus:bg-gray-100 dark:focus:bg-[#404040] focus:outline-none rounded-sm px-3 py-2 cursor-pointer data-[selected=true]:bg-blue-50 dark:data-[selected=true]:bg-blue-900/20 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400 data-[focus=true]:bg-gray-100 dark:data-[focus=true]:bg-[#404040]',
-            }}
+            textValue={item.label}
+            className="text-sm text-gray-700 dark:text-gray-300 hover:bg-transparent dark:hover:bg-transparent focus:bg-gray-100 dark:focus:bg-[#404040] focus:outline-none rounded-sm px-3 py-2 cursor-pointer data-[selected=true]:bg-blue-50 dark:data-[selected=true]:bg-blue-900/20 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400 data-[focus=true]:bg-gray-100 dark:data-[focus=true]:bg-[#404040]"
           >
             {item.label}
-          </AutocompleteItem>
+          </ListBox.Item>
         )}
       </Autocomplete>
     </div>

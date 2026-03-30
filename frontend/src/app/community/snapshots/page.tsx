@@ -1,6 +1,6 @@
 'use client'
 import { useQuery } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { FaRightToBracket } from 'react-icons/fa6'

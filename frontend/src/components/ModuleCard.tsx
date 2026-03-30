@@ -16,7 +16,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { capitalize } from 'lodash'
 import Image from 'next/image'
 import Link from 'next/link'

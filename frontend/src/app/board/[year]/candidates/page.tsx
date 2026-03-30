@@ -1,6 +1,6 @@
 'use client'
 import { useQuery, useApolloClient } from '@apollo/client/react'
-import { Button } from '@heroui/button'
+import { Button } from '@heroui/react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import millify from 'millify'

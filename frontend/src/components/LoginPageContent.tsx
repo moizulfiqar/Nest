@@ -1,6 +1,6 @@
 'use client'
 
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn } from 'next-auth/react'
 import { FC, useCallback, useEffect } from 'react'

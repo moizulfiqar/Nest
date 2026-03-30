@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import { FC, MouseEvent } from 'react'
 
 interface MetricsScoreCircleProps {

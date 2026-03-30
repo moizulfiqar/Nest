@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import { IconWrapper } from 'wrappers/IconWrapper'
 import { BADGE_CLASS_MAP } from 'utils/data'
 

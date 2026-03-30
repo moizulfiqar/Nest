@@ -1,7 +1,8 @@
 'use client'
 
 import { useQuery } from '@apollo/client/react'
-import { Select, SelectItem } from '@heroui/select'
+import { ListBox } from '@heroui/react'
+import { SelectCompat as Select } from 'utils/herouiCompat'
 import { BreadcrumbStyleProvider } from 'contexts/BreadcrumbContext'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -139,61 +140,49 @@ const IssuesPage = () => {
             <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-3">
               <div className="inline-flex h-12 items-center rounded-lg bg-gray-200 dark:bg-[#323232]">
                 <Select
-                  labelPlacement="outside-left"
-                  size="md"
                   aria-label="Filter by label"
-                  label="Label :"
                   classNames={{
-                    label:
-                      'font-small text-sm text-gray-600 hover:cursor-pointer dark:text-gray-300 pl-[1.4rem] w-auto',
-                    trigger: 'bg-gray-200 dark:bg-[#323232] pl-0 text-nowrap w-40',
+                    trigger: 'bg-gray-200 dark:bg-[#323232] pl-4 text-nowrap w-40',
                     popoverContent: 'text-md min-w-40 dark:bg-[#323232] rounded-none p-0',
                   }}
                   selectedKeys={new Set([selectedLabel])}
-                  onSelectionChange={(keys) => {
+                  onSelectionChange={(keys: any) => {
                     const [key] = Array.from(keys as Set<string>)
                     if (key !== undefined) handleLabelChange(key)
                   }}
                 >
                   {[LABEL_ALL, ...allLabels].map((l) => (
-                    <SelectItem
+                    <ListBox.Item
                       key={l}
-                      classNames={{
-                        base: 'text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5',
-                      }}
+                      textValue={l === LABEL_ALL ? 'all' : l}
+                      className="text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5"
                     >
                       {l === LABEL_ALL ? 'All' : l}
-                    </SelectItem>
+                    </ListBox.Item>
                   ))}
                 </Select>
               </div>
               <div className="inline-flex h-12 items-center rounded-lg bg-gray-200 dark:bg-[#323232]">
                 <Select
-                  labelPlacement="outside-left"
-                  size="md"
                   aria-label="Filter by deadline"
-                  label="Deadline :"
                   classNames={{
-                    label:
-                      'font-small text-sm text-gray-600 hover:cursor-pointer dark:text-gray-300 pl-[1.4rem] w-auto',
-                    trigger: 'bg-gray-200 dark:bg-[#323232] pl-0 text-nowrap w-36',
+                    trigger: 'bg-gray-200 dark:bg-[#323232] pl-4 text-nowrap w-36',
                     popoverContent: 'text-md min-w-36 dark:bg-[#323232] rounded-none p-0',
                   }}
                   selectedKeys={new Set([selectedDeadline])}
-                  onSelectionChange={(keys) => {
+                  onSelectionChange={(keys: any) => {
                     const [key] = Array.from(keys as Set<string>)
                     if (key) handleDeadlineChange(key)
                   }}
                 >
                   {DEADLINE_OPTIONS.map((option) => (
-                    <SelectItem
+                    <ListBox.Item
                       key={option.key}
-                      classNames={{
-                        base: 'text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5',
-                      }}
+                      textValue={option.label}
+                      className="text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5"
                     >
                       {option.label}
-                    </SelectItem>
+                    </ListBox.Item>
                   ))}
                 </Select>
               </div>

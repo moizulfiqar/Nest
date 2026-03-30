@@ -1,6 +1,6 @@
 'use client'
 import { useMutation, useQuery } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { BreadcrumbStyleProvider } from 'contexts/BreadcrumbContext'
 import { capitalize } from 'lodash'
 import { useParams } from 'next/navigation'

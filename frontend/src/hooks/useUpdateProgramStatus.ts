@@ -1,6 +1,6 @@
 import { DocumentNode } from '@apollo/client'
 import { useMutation } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import upperFirst from 'lodash/upperFirst'
 import { handleAppError } from 'app/global-error'
 import { ProgramStatusEnum } from 'types/__generated__/graphql'

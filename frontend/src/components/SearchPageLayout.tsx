@@ -1,4 +1,4 @@
-import { Skeleton } from '@heroui/skeleton'
+import { Skeleton } from '@heroui/react'
 import React, { useEffect, useState } from 'react'
 import Pagination from 'components/Pagination'
 import SearchBar from 'components/Search'

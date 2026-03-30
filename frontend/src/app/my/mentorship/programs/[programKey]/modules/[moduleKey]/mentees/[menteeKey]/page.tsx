@@ -1,7 +1,8 @@
 'use client'
 
 import { useQuery } from '@apollo/client/react'
-import { Select, SelectItem } from '@heroui/select'
+import { ListBox } from '@heroui/react'
+import { SelectCompat as Select } from 'utils/herouiCompat'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useMemo, useEffect, useState } from 'react'
@@ -194,10 +195,9 @@ const MenteeProfilePage = () => {
               <div className="mb-4 flex justify-end gap-3">
                 <div className="inline-flex h-12 items-center rounded-lg bg-gray-200 dark:bg-[#323232]">
                   <Select
-                    size="md"
                     aria-label="Filter by deadline"
                     selectedKeys={new Set([selectedDeadline])}
-                    onSelectionChange={(keys) => {
+                    onSelectionChange={(keys: any) => {
                       const [key] = Array.from(keys as Set<string>)
                       if (key) {
                         setSelectedDeadline(key)
@@ -210,23 +210,21 @@ const MenteeProfilePage = () => {
                     }}
                   >
                     {DEADLINE_OPTIONS.map((option) => (
-                      <SelectItem
+                      <ListBox.Item
                         key={option.key}
-                        classNames={{
-                          base: 'text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5',
-                        }}
+                        textValue={option.label}
+                        className="text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5"
                       >
                         {option.label}
-                      </SelectItem>
+                      </ListBox.Item>
                     ))}
                   </Select>
                 </div>
                 <div className="inline-flex h-12 items-center rounded-lg bg-gray-200 dark:bg-[#323232]">
                   <Select
-                    size="md"
                     aria-label="Filter by status"
                     selectedKeys={new Set([statusFilter])}
-                    onSelectionChange={(keys) => {
+                    onSelectionChange={(keys: any) => {
                       const [key] = Array.from(keys as Set<string>)
                       if (key) {
                         setStatusFilter(key)
@@ -239,14 +237,13 @@ const MenteeProfilePage = () => {
                     }}
                   >
                     {statusFilterOptions.map((option) => (
-                      <SelectItem
+                      <ListBox.Item
                         key={option.key}
-                        classNames={{
-                          base: 'text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5',
-                        }}
+                        textValue={option.label}
+                        className="text-sm hover:bg-[#D1DBE6] dark:hover:bg-[#454545] rounded-none px-3 py-0.5"
                       >
                         {option.key === 'all' ? option.label : `${option.label} (${option.count})`}
-                      </SelectItem>
+                      </ListBox.Item>
                     ))}
                   </Select>
                 </div>

@@ -1,9 +1,7 @@
 'use client'
 import { useMutation, useQuery } from '@apollo/client/react'
-import { Button } from '@heroui/button'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
-import { Input } from '@heroui/react'
-import { addToast } from '@heroui/toast'
+import { Button, Modal, Input } from '@heroui/react'
+import { addToast } from 'utils/toastWrapper'
 import { format, addDays } from 'date-fns'
 import React, { useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
@@ -61,7 +59,7 @@ const ApiKeysTable = ({ data, onRevoke }: ApiKeysTableProps) => (
             </td>
             <td className="py-3 text-right">
               <Button
-                variant="light"
+                variant="ghost"
                 size="sm"
                 onPress={() => onRevoke(key)}
                 className="text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
@@ -313,148 +311,154 @@ export default function Page() {
         </SecondaryCard>
       </div>
 
-      <Modal isOpen={isCreateModalOpen} onClose={closeCreateModal} size="lg">
-        <ModalContent>
-          <ModalHeader>Create New API Key</ModalHeader>
-          <ModalBody>
-            {newlyCreatedKey ? (
-              <div className="flex flex-col gap-4">
-                <div className="rounded-md bg-green-50 p-4 dark:bg-green-900/20">
-                  <p className="font-medium text-green-800 dark:text-green-400">
-                    API key created successfully!
-                  </p>
-                  <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                    Important: Copy it now as you won't be able to see it again.
-                  </p>
+      <Modal isOpen={isCreateModalOpen} onOpenChange={closeCreateModal}>
+        <Modal.Backdrop />
+        <Modal.Container size="lg">
+          <Modal.Dialog>
+            <Modal.Header>Create New API Key</Modal.Header>
+            <Modal.Body>
+              {newlyCreatedKey ? (
+                <div className="flex flex-col gap-4">
+                  <div className="rounded-md bg-green-50 p-4 dark:bg-green-900/20">
+                    <p className="font-medium text-green-800 dark:text-green-400">
+                      API key created successfully!
+                    </p>
+                    <p className="text-sm text-yellow-800 dark:text-yellow-400">
+                      Important: Copy it now as you won't be able to see it again.
+                    </p>
+                  </div>
+                  <div>
+                    <label htmlFor="api-key" className="mb-2 block text-sm font-medium">
+                      API Key
+                    </label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="api-key"
+                        type={showNewKey ? 'text' : 'password'}
+                        value={newlyCreatedKey}
+                        readOnly
+                        className="flex-1 font-mono"
+                      />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onPress={() => setShowNewKey(!showNewKey)}
+                        isIconOnly
+                        aria-label="toggle show key"
+                      >
+                        {showNewKey ? <FaEyeSlash /> : <FaEye />}
+                      </Button>
+                      <Button variant="outline" onPress={handleCopyKey} size="sm">
+                        <FaCopy className="mr-2" />
+                        Copy
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="api-key" className="mb-2 block text-sm font-medium">
-                    API Key
-                  </label>
-                  <div className="flex gap-2">
+              ) : (
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <label htmlFor="api-key-name" className="mb-2 block text-sm font-medium">
+                      API Key Name
+                    </label>
                     <Input
-                      id="api-key"
-                      type={showNewKey ? 'text' : 'password'}
-                      value={newlyCreatedKey}
-                      readOnly
-                      className="flex-1 font-mono"
+                      id="api-key-name"
+                      value={newKeyName}
+                      onChange={(e) => setNewKeyName(e.target.value)}
+                      placeholder="e.g., Development, Production, CI/CD"
                     />
-                    <Button
-                      variant="light"
-                      size="sm"
-                      onPress={() => setShowNewKey(!showNewKey)}
-                      isIconOnly
-                      aria-label="toggle show key"
-                    >
-                      {showNewKey ? <FaEyeSlash /> : <FaEye />}
-                    </Button>
-                    <Button variant="bordered" onPress={handleCopyKey} size="sm">
-                      <FaCopy className="mr-2" />
-                      Copy
-                    </Button>
+                    <p className="mt-1 text-xs text-gray-500">
+                      Use letters, numbers, spaces, and hyphens only. Avoid special characters.
+                    </p>
+                  </div>
+                  <div>
+                    <label htmlFor="expiration-date" className="mb-2 block text-sm font-medium">
+                      Expiration Date
+                    </label>
+                    <Input
+                      id="expiration-date"
+                      type="date"
+                      value={newKeyExpiry}
+                      onChange={(e) => setNewKeyExpiry(e.target.value)}
+                      min={format(new Date(), 'yyyy-MM-dd')}
+                    />
+                    <p className="mt-1 text-xs text-gray-500">
+                      Default: 30 days from today ({format(addDays(new Date(), 30), 'PP')}).
+                    </p>
+                    <div className="mt-2 flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onPress={() => setNewKeyExpiry(format(addDays(new Date(), 90), 'yyyy-MM-dd'))}
+                      >
+                        90 days
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onPress={() =>
+                          setNewKeyExpiry(format(addDays(new Date(), 365), 'yyyy-MM-dd'))
+                        }
+                      >
+                        1 year
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <div>
-                  <label htmlFor="api-key-name" className="mb-2 block text-sm font-medium">
-                    API Key Name
-                  </label>
-                  <Input
-                    id="api-key-name"
-                    value={newKeyName}
-                    onChange={(e) => setNewKeyName(e.target.value)}
-                    placeholder="e.g., Development, Production, CI/CD"
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    Use letters, numbers, spaces, and hyphens only. Avoid special characters.
-                  </p>
-                </div>
-                <div>
-                  <label htmlFor="expiration-date" className="mb-2 block text-sm font-medium">
-                    Expiration Date
-                  </label>
-                  <Input
-                    id="expiration-date"
-                    type="date"
-                    value={newKeyExpiry}
-                    onChange={(e) => setNewKeyExpiry(e.target.value)}
-                    min={format(new Date(), 'yyyy-MM-dd')}
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    Default: 30 days from today ({format(addDays(new Date(), 30), 'PP')}).
-                  </p>
-                  <div className="mt-2 flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="bordered"
-                      onPress={() => setNewKeyExpiry(format(addDays(new Date(), 90), 'yyyy-MM-dd'))}
-                    >
-                      90 days
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="bordered"
-                      onPress={() =>
-                        setNewKeyExpiry(format(addDays(new Date(), 365), 'yyyy-MM-dd'))
-                      }
-                    >
-                      1 year
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            {newlyCreatedKey ? (
-              <Button color="primary" onPress={closeCreateModal}>
-                Done
-              </Button>
-            ) : (
-              <>
-                <Button variant="light" onPress={closeCreateModal}>
-                  Cancel
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              {newlyCreatedKey ? (
+                <Button variant="primary" onPress={closeCreateModal}>
+                  Done
                 </Button>
-                <Button
-                  color="primary"
-                  onPress={handleCreateKey}
-                  isDisabled={createLoading || !newKeyName.trim()}
-                >
-                  {createLoading && <FaSpinner className="mr-2 animate-spin" />}
-                  Create API Key
-                </Button>
-              </>
-            )}
-          </ModalFooter>
-        </ModalContent>
+              ) : (
+                <>
+                  <Button variant="ghost" onPress={closeCreateModal}>
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onPress={handleCreateKey}
+                    isDisabled={createLoading || !newKeyName.trim()}
+                  >
+                    {createLoading && <FaSpinner className="mr-2 animate-spin" />}
+                    Create API Key
+                  </Button>
+                </>
+              )}
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
       </Modal>
 
-      <Modal isOpen={!!keyToRevoke} onClose={() => setKeyToRevoke(null)} size="md">
-        <ModalContent>
-          <ModalHeader>Revoke API Key</ModalHeader>
-          <ModalBody>
-            <p>
-              Are you sure you want to revoke the key named <strong>"{keyToRevoke?.name}"</strong>?
-              This action cannot be undone and will immediately disable the key.
-            </p>
-            <div className="mt-3 rounded-md bg-yellow-50 p-3 dark:bg-yellow-900/20">
-              <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                <FaInfoCircle className="mr-2 inline align-middle" />
-                After revoking this key, you'll be able to create a new one if needed.
+      <Modal isOpen={!!keyToRevoke} onOpenChange={() => setKeyToRevoke(null)}>
+        <Modal.Backdrop />
+        <Modal.Container size="md">
+          <Modal.Dialog>
+            <Modal.Header>Revoke API Key</Modal.Header>
+            <Modal.Body>
+              <p>
+                Are you sure you want to revoke the key named <strong>"{keyToRevoke?.name}"</strong>?
+                This action cannot be undone and will immediately disable the key.
               </p>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="light" onPress={() => setKeyToRevoke(null)}>
-              Cancel
-            </Button>
-            <Button color="danger" onPress={handleRevokeKey}>
-              Revoke Key
-            </Button>
-          </ModalFooter>
-        </ModalContent>
+              <div className="mt-3 rounded-md bg-yellow-50 p-3 dark:bg-yellow-900/20">
+                <p className="text-sm text-yellow-800 dark:text-yellow-400">
+                  <FaInfoCircle className="mr-2 inline align-middle" />
+                  After revoking this key, you'll be able to create a new one if needed.
+                </p>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="ghost" onPress={() => setKeyToRevoke(null)}>
+                Cancel
+              </Button>
+              <Button variant="danger" onPress={handleRevokeKey}>
+                Revoke Key
+              </Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
       </Modal>
     </div>
   )

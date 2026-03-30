@@ -2,9 +2,8 @@
 
 import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client/react'
-import { Button } from '@heroui/button'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
-import { addToast } from '@heroui/toast'
+import { Button, Modal } from '@heroui/react'
+import { addToast } from 'utils/toastWrapper'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState, useRef, useEffect } from 'react'
@@ -283,32 +282,33 @@ const EntityActions: React.FC<EntityActionsProps> = ({
       </div>
 
       {type === 'module' && (
-        <Modal isOpen={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
-          <ModalContent>
-            <ModalHeader className="flex flex-col gap-1">Delete Module</ModalHeader>
-            <ModalBody>
-              <p>Are you sure you want to delete this module? This action cannot be undone.</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="default"
-                variant="light"
-                onPress={() => setDeleteModalOpen(false)}
-                disabled={isDeleting}
-              >
-                Cancel
-              </Button>
-              <Button
-                color="danger"
-                onPress={handleDeleteConfirm}
-                isLoading={isDeleting}
-                disabled={isDeleting}
-                className="text-white"
-              >
-                Delete
-              </Button>
-            </ModalFooter>
-          </ModalContent>
+        <Modal isOpen={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
+          <Modal.Backdrop />
+          <Modal.Container>
+            <Modal.Dialog>
+              <Modal.Header className="flex flex-col gap-1">Delete Module</Modal.Header>
+              <Modal.Body>
+                <p>Are you sure you want to delete this module? This action cannot be undone.</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="ghost"
+                  onPress={() => setDeleteModalOpen(false)}
+                  isDisabled={isDeleting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  onPress={handleDeleteConfirm}
+                  isDisabled={isDeleting}
+                  className="text-white"
+                >
+                  Delete
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </Modal.Container>
         </Modal>
       )}
     </>

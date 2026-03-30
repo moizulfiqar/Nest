@@ -1,5 +1,5 @@
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
+import { Button } from '@heroui/react'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md'
@@ -21,7 +21,7 @@ export default function ModeToggle() {
     <div className="flex items-center">
       <Tooltip
         showArrow
-        placement="bottom-end"
+        placement="bottom"
         content={theme === 'dark' ? 'Enable light mode' : 'Enable dark mode'}
       >
         <Button

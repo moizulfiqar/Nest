@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@apollo/client/react'
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import upperFirst from 'lodash/upperFirst'
 import millify from 'millify'
 import Image from 'next/image'

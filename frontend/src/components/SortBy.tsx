@@ -1,5 +1,5 @@
-import { Select, SelectItem } from '@heroui/select'
-import { Tooltip } from '@heroui/tooltip'
+import { SelectCompat as Select, SelectItem } from 'utils/herouiCompat'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import type React from 'react'
 import { FaArrowDownWideShort, FaArrowUpWideShort } from 'react-icons/fa6'
 import type { SortByProps } from 'types/sortBy'
@@ -28,12 +28,9 @@ const SortBy = ({
         className={`-ml-px inline-flex h-12 items-center border border-gray-300 bg-white pl-3 shadow-none dark:border-gray-600 dark:bg-gray-800 ${showOrderButton ? 'rounded-l-lg rounded-r-none border-r-0' : 'rounded-lg'}`}
       >
         <Select
+          aria-label="Sort by"
           className=""
-          labelPlacement="outside-left"
-          size="md"
-          label={showLabel ? 'Sort By :' : undefined}
           classNames={{
-            label: 'font-medium text-sm text-gray-700 dark:text-gray-300 w-auto select-none pe-0',
             trigger:
               'bg-transparent data-[hover=true]:bg-transparent focus:outline-none focus:underline border-none shadow-none text-nowrap w-32 min-h-8 h-8 text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-0',
             value: 'text-gray-800 dark:text-gray-200 font-medium',
@@ -45,16 +42,15 @@ const SortBy = ({
           selectedKeys={sortOptions
             .filter((item: { key: string; label: string }) => item.key === selectedSortOption)
             .map((item) => item.key)}
-          onChange={(e) => {
-            onSortChange((e.target as HTMLSelectElement).value)
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            onSortChange(e.target.value)
           }}
         >
           {sortOptions.map((option: { label: string; key: string }) => (
             <SelectItem
               key={option.key}
-              classNames={{
-                base: 'text-sm text-gray-700 dark:text-gray-300 hover:bg-transparent dark:hover:bg-transparent focus:bg-gray-100 dark:focus:bg-[#404040] focus:outline-none rounded-sm px-3 py-2 cursor-pointer data-[selected=true]:bg-blue-50 dark:data-[selected=true]:bg-blue-900/20 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400 data-[focus=true]:bg-gray-100 dark:data-[focus=true]:bg-[#404040]',
-              }}
+              textValue={option.label}
+              className="text-sm text-gray-700 dark:text-gray-300 hover:bg-transparent dark:hover:bg-transparent focus:bg-gray-100 dark:focus:bg-[#404040] focus:outline-none rounded-sm px-3 py-2 cursor-pointer data-[selected=true]:bg-blue-50 dark:data-[selected=true]:bg-blue-900/20 data-[selected=true]:text-blue-600 dark:data-[selected=true]:text-blue-400 data-[focus=true]:bg-gray-100 dark:data-[focus=true]:bg-[#404040]"
             >
               {option.label}
             </SelectItem>
@@ -64,28 +60,27 @@ const SortBy = ({
 
       {/* Sort Order Button */}
       {showOrderButton && (
-        <Tooltip
-          content={selectedOrder === 'asc' ? 'Ascending Order' : 'Descending Order'}
-          showArrow
-          placement="top-start"
-          delay={100}
-          closeDelay={100}
-        >
-          <button
-            type="button"
-            onClick={() => onOrderChange(selectedOrder === 'asc' ? 'desc' : 'asc')}
-            onKeyDown={handleKeyDown}
-            className="inline-flex h-12 w-10 items-center justify-center rounded-l-none rounded-r-lg border border-l-0 border-gray-300 bg-white p-0 shadow-none transition-[background-color] duration-200 hover:bg-gray-100 focus:ring-0 focus:ring-offset-0 focus:outline-none active:ring-0 active:outline-none dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
-            aria-label={
-              selectedOrder === 'asc' ? 'Sort in ascending order' : 'Sort in descending order'
-            }
-          >
-            {selectedOrder === 'asc' ? (
-              <FaArrowUpWideShort className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-            ) : (
-              <FaArrowDownWideShort className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-            )}
-          </button>
+        <Tooltip delay={100} closeDelay={100}>
+          <Tooltip.Trigger>
+            <button
+              type="button"
+              onClick={() => onOrderChange(selectedOrder === 'asc' ? 'desc' : 'asc')}
+              onKeyDown={handleKeyDown}
+              className="inline-flex h-12 w-10 items-center justify-center rounded-l-none rounded-r-lg border border-l-0 border-gray-300 bg-white p-0 shadow-none transition-[background-color] duration-200 hover:bg-gray-100 focus:ring-0 focus:ring-offset-0 focus:outline-none active:ring-0 active:outline-none dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
+              aria-label={
+                selectedOrder === 'asc' ? 'Sort in ascending order' : 'Sort in descending order'
+              }
+            >
+              {selectedOrder === 'asc' ? (
+                <FaArrowUpWideShort className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+              ) : (
+                <FaArrowDownWideShort className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+              )}
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <div>{selectedOrder === 'asc' ? 'Ascending Order' : 'Descending Order'}</div>
+          </Tooltip.Content>
         </Tooltip>
       )}
     </div>

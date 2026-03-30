@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { debounce } from 'lodash'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'

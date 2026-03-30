@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@apollo/client/react'
-import { Pagination } from '@heroui/react'
+import { Pagination } from 'utils/herouiCompat'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { FC, useState, useEffect, Key } from 'react'
 import { FaFilter, FaArrowDownWideShort, FaArrowUpWideShort } from 'react-icons/fa6'
@@ -304,10 +304,9 @@ const MetricsPage: FC = () => {
           </div>
           <div className="mt-4 flex items-center justify-center">
             <Pagination
-              initialPage={getCurrentPage()}
               page={getCurrentPage()}
               total={Math.ceil(metricsLength / PAGINATION_LIMIT)}
-              onChange={async (page) => {
+              onChange={async (page: number) => {
                 const newOffset = (page - 1) * PAGINATION_LIMIT
                 const newPagination = { offset: newOffset, limit: PAGINATION_LIMIT }
                 setPagination(newPagination)

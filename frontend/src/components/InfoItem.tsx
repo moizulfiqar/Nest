@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import millify from 'millify'
 import type { IconType } from 'react-icons'
 import { IconWrapper } from 'wrappers/IconWrapper'

@@ -1,7 +1,8 @@
 'use client'
 import { useApolloClient } from '@apollo/client/react'
-import { Autocomplete, AutocompleteItem } from '@heroui/react'
-import { Select, SelectItem } from '@heroui/select'
+import { ListBox } from '@heroui/react'
+import { AutocompleteCompat as Autocomplete } from 'utils/herouiCompat'
+import { SelectCompat as Select } from 'utils/herouiCompat'
 import debounce from 'lodash/debounce'
 import type React from 'react'
 import { useState, useEffect, useCallback } from 'react'
@@ -261,7 +262,9 @@ const ModuleForm = ({
                     }}
                   >
                     {EXPERIENCE_LEVELS.map((lvl) => (
-                      <SelectItem key={lvl.key}>{lvl.label}</SelectItem>
+                      <ListBox.Item key={lvl.key} textValue={lvl.label}>
+                        {lvl.label}
+                      </ListBox.Item>
                     ))}
                   </Select>
                 </div>
@@ -463,9 +466,9 @@ export const ProjectSelector = ({
         }}
       >
         {items.map((project) => (
-          <AutocompleteItem key={project.id} textValue={project.name}>
+          <ListBox.Item key={project.id} textValue={project.name}>
             {project.name}
-          </AutocompleteItem>
+          </ListBox.Item>
         ))}
       </Autocomplete>
     </div>

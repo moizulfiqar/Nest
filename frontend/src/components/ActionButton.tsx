@@ -1,5 +1,5 @@
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
+import { Button } from '@heroui/react'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
 

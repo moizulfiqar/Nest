@@ -1,7 +1,7 @@
 'use client'
 
 import { useMutation, useQuery } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useRouter, useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import type React from 'react'

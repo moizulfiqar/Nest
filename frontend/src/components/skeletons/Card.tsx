@@ -1,4 +1,4 @@
-import { Skeleton } from '@heroui/skeleton'
+import { Skeleton } from '@heroui/react'
 import type React from 'react'
 import type { CardSkeletonProps } from 'types/skeleton'
 

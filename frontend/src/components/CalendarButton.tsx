@@ -1,6 +1,6 @@
 'use client'
 
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useState } from 'react'
 import { FaCalendar, FaCalendarPlus } from 'react-icons/fa6'
 import type { CalendarButtonProps } from 'types/calendar'

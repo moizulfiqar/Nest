@@ -1,13 +1,10 @@
 'use client'
 
-import { Input } from '@heroui/react'
+import { TextField, Label, Input, FieldError } from '@heroui/react'
 
 const COMMON_INPUT_CLASS_NAMES = {
-  base: 'w-full min-w-0',
   label: 'text-sm font-semibold text-gray-600 dark:text-gray-300',
-  input: 'text-gray-800 dark:text-gray-200',
-  inputWrapper: 'bg-gray-50 dark:bg-gray-800',
-  helperWrapper: 'min-w-0 max-w-full w-full',
+  input: 'bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200',
   errorMessage: 'break-words whitespace-normal max-w-full w-full',
 }
 
@@ -40,23 +37,28 @@ export const FormTextInput = ({
   className,
   onBlur,
 }: FormTextInputProps) => {
+  const isInvalid = touched && !!error
   return (
-    <div className={className || 'w-full min-w-0'} style={{ maxWidth: '100%', overflow: 'hidden' }}>
+    <TextField
+      id={id}
+      isInvalid={isInvalid}
+      isRequired={required}
+      className={className || 'w-full min-w-0'}
+      style={{ maxWidth: '100%', overflow: 'hidden' }}
+    >
+      <Label className={COMMON_INPUT_CLASS_NAMES.label}>{label}</Label>
       <Input
-        id={id}
         type={type}
-        label={label}
-        labelPlacement="outside"
         placeholder={placeholder}
         value={value}
-        onValueChange={onValueChange}
+        onChange={(e) => onValueChange(e.target.value)}
         onBlur={onBlur}
-        isRequired={required}
-        isInvalid={touched && !!error}
-        errorMessage={touched ? error : undefined}
         min={min}
-        classNames={COMMON_INPUT_CLASS_NAMES}
+        className={COMMON_INPUT_CLASS_NAMES.input}
       />
-    </div>
+      {isInvalid && error && (
+        <FieldError className={COMMON_INPUT_CLASS_NAMES.errorMessage}>{error}</FieldError>
+      )}
+    </TextField>
   )
 }

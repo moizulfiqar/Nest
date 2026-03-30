@@ -1,4 +1,4 @@
-import { Skeleton } from '@heroui/skeleton'
+import { Skeleton } from '@heroui/react'
 import type { ReactNode } from 'react'
 
 export const ItemCardSkeleton = ({ titleWidth }: { titleWidth: string }) => (

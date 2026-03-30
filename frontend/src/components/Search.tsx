@@ -1,4 +1,4 @@
-import { Skeleton } from '@heroui/skeleton'
+import { Skeleton } from '@heroui/react'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { useShouldAutoFocusSearch } from 'hooks/useShouldAutoFocusSearch'
 import { debounce } from 'lodash'

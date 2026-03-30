@@ -1,6 +1,6 @@
 'use client'
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
+import { Button } from '@heroui/react'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import L from 'leaflet'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
@@ -298,7 +298,7 @@ const ChapterMap = ({
                   ? 'Reset location filter'
                   : 'Share your location to find nearby chapters'
               }
-              placement="bottom-start"
+              placement="bottom"
             >
               <Button
                 isIconOnly

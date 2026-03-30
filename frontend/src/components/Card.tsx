@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import Link from 'next/link'
 import { FaCalendar } from 'react-icons/fa6'
 import { IconWrapper } from 'wrappers/IconWrapper'

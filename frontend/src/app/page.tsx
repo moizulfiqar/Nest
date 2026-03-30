@@ -1,6 +1,6 @@
 'use client'
 import { useQuery } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import upperFirst from 'lodash/upperFirst'
 import millify from 'millify'
 import Link from 'next/link'

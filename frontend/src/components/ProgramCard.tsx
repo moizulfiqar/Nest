@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import { useUpdateProgramStatus } from 'hooks/useUpdateProgramStatus'
 import Link from 'next/link'
 import type React from 'react'

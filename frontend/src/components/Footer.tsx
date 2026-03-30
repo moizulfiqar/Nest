@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '@heroui/button'
+import { Button } from '@heroui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -34,7 +34,6 @@ export default function Footer() {
             <div key={section.title} className="flex flex-col gap-4">
               {/*link*/}
               <Button
-                disableAnimation
                 onPress={() => toggleSection(section.title)}
                 className="flex w-full items-center justify-between rounded-md bg-transparent pl-0 text-left text-lg font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 md:justify-start md:gap-2 lg:cursor-default"
                 aria-expanded={openSection === section.title}

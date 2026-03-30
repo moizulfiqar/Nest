@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import clsx from 'clsx'
 import { FC } from 'react'
 import type { IconType } from 'react-icons'

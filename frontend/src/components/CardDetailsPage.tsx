@@ -1,4 +1,4 @@
-import { Tooltip } from '@heroui/tooltip'
+import { TooltipCompat as Tooltip } from 'wrappers/TooltipCompat'
 import upperFirst from 'lodash/upperFirst'
 import Image from 'next/image'
 import Link from 'next/link'

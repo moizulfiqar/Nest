@@ -1,4 +1,4 @@
-import { Button } from '@heroui/button'
+import { Button } from '@heroui/react'
 import { FaChevronRight, FaCalendar } from 'react-icons/fa6'
 import type { SnapshotCardProps } from 'types/card'
 import { formatDate } from 'utils/dateFormatter'

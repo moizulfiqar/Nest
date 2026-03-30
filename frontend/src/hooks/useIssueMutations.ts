@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from 'utils/toastWrapper'
 import { useState } from 'react'
 import {
   AssignIssueToUserDocument,

@@ -1,4 +1,4 @@
-import { Skeleton } from '@heroui/skeleton'
+import { Skeleton } from '@heroui/react'
 import type { CardSkeletonProps } from 'types/skeleton'
 import LoadingSpinner from 'components/LoadingSpinner'
 import AboutSkeleton from 'components/skeletons/AboutSkeleton'
